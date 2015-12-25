@@ -16,12 +16,13 @@
     [self vk_removeRefreshHeader];
     
     VKRefreshHeader *fresh = [[VKRefreshHeader alloc]init];
-    fresh.backgroundColor = [UIColor redColor];
+    fresh.backgroundColor = [UIColor lightGrayColor];
     self.vkHeader = fresh;
     [self addSubview:self.vkHeader];
     
 }
 
+//动态绑定属性vkHeader到UIScrollView上面
 static char VKRefreshHeaderKey;
 - (void)setVkHeader:(VKRefreshHeader * _Nullable)vkHeader {
     [self willChangeValueForKey:@"vkHeader"];

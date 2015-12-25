@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "VKRefreshComponent.h"
 
+
+
 @interface VKRefreshHeader : VKRefreshComponent
 
+@property (nonatomic, assign) VKRefreshState state;
 @end

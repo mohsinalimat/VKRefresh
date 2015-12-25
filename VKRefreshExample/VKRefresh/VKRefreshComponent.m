@@ -14,8 +14,6 @@
 
 @property (assign, nonatomic) UIEdgeInsets scrollViewOriginalInset;
 
-@property (weak, nonatomic) UIScrollView *scrollView;
-
 @end
 
 @implementation VKRefreshComponent

@@ -34,15 +34,15 @@
 //        self.refreshTableView.contentOffset = CGPointMake(0, 0);
 //    });
 //    self.refreshTableView.contentInset = UIEdgeInsetsMake(164, 0, 0, 0);
-    self.refreshTableView.contentOffset = CGPointMake(0, 90);
-    self.refreshTableView.tableFooterView = [[UIView alloc]init];
+//    self.refreshTableView.contentOffset = CGPointMake(0, 90);
+//    self.refreshTableView.tableFooterView = [[UIView alloc]init];
 }
 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    NSLog(@"2222>>>%@", NSStringFromCGRect(scrollView.frame));
-    NSLog(@">>>%@", NSStringFromCGPoint(scrollView.contentOffset));
-    NSLog(@"111111>>>%@", NSStringFromUIEdgeInsets((scrollView.contentInset)));
+//    NSLog(@"2222>>>%@", NSStringFromCGRect(scrollView.frame));
+//    NSLog(@">>>%@", NSStringFromCGPoint(scrollView.contentOffset));
+//    NSLog(@"111111>>>%@", NSStringFromUIEdgeInsets((scrollView.contentInset)));
 }
 
 //- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
@@ -60,9 +60,9 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"CellIdentifier"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    cell.contentView.backgroundColor = [UIColor cyanColor];
+    cell.contentView.backgroundColor = [UIColor grayColor];
     if (indexPath.row == 0) {
-        cell.contentView.backgroundColor = [UIColor yellowColor];
+        cell.contentView.backgroundColor = [UIColor darkGrayColor];
     }
     
     

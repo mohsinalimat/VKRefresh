@@ -6,8 +6,13 @@
 //  Copyright © 2015年 vokie. All rights reserved.
 //
 
+
+
+//常量定义
 #define VKRefreshSrcName(name) [NSString stringWithFormat:@"VKRefresh.bundle/%@", name]
 
-UIKIT_EXTERN float const VKRefreshHeaderHeight;
+#define VKRefreshAnimationDuration 0.5
 
-UIKIT_EXTERN NSString *const VKRefreshContentOffset;
+#define VKRefreshHeaderHeight 64.0
+
+#define VKRefreshContentOffset @"contentOffset"
