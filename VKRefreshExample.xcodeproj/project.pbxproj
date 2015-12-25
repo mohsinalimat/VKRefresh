@@ -1,0 +1,371 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B05A70BF1C27922100D1787F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B05A70BE1C27922100D1787F /* main.m */; };
+		B05A70C21C27922100D1787F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B05A70C11C27922100D1787F /* AppDelegate.m */; };
+		B05A70C51C27922100D1787F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B05A70C41C27922100D1787F /* ViewController.m */; };
+		B05A70C81C27922100D1787F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B05A70C61C27922100D1787F /* Main.storyboard */; };
+		B05A70CA1C27922100D1787F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B05A70C91C27922100D1787F /* Assets.xcassets */; };
+		B05A70CD1C27922100D1787F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B05A70CB1C27922100D1787F /* LaunchScreen.storyboard */; };
+		B05A70E31C279B5C00D1787F /* UIScrollView+VKRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = B05A70DF1C279B5C00D1787F /* UIScrollView+VKRefresh.m */; };
+		B05A70E41C279B5C00D1787F /* VKRefreshConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = B05A70E21C279B5C00D1787F /* VKRefreshConstant.m */; };
+		B05A70EA1C279BBD00D1787F /* VKRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B05A70E91C279BBD00D1787F /* VKRefreshHeader.m */; };
+		B05A70EE1C27A43E00D1787F /* VKRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = B05A70ED1C27A43E00D1787F /* VKRefreshComponent.m */; };
+		B06A25011C28E45B00105372 /* VKRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B06A25001C28E45B00105372 /* VKRefresh.bundle */; };
+		B06A25041C291C1E00105372 /* UIView+VKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B06A25031C291C1E00105372 /* UIView+VKExtension.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B05A70BA1C27922100D1787F /* VKRefreshExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VKRefreshExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B05A70BE1C27922100D1787F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B05A70C01C27922100D1787F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B05A70C11C27922100D1787F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B05A70C31C27922100D1787F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		B05A70C41C27922100D1787F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B05A70C71C27922100D1787F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B05A70C91C27922100D1787F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B05A70CC1C27922100D1787F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B05A70CE1C27922100D1787F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B05A70DE1C279B5C00D1787F /* UIScrollView+VKRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+VKRefresh.h"; path = "VKRefresh/UIScrollView+VKRefresh.h"; sourceTree = "<group>"; };
+		B05A70DF1C279B5C00D1787F /* UIScrollView+VKRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+VKRefresh.m"; path = "VKRefresh/UIScrollView+VKRefresh.m"; sourceTree = "<group>"; };
+		B05A70E01C279B5C00D1787F /* VKRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKRefresh.h; path = VKRefresh/VKRefresh.h; sourceTree = "<group>"; };
+		B05A70E11C279B5C00D1787F /* VKRefreshConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKRefreshConstant.h; path = VKRefresh/VKRefreshConstant.h; sourceTree = "<group>"; };
+		B05A70E21C279B5C00D1787F /* VKRefreshConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKRefreshConstant.m; path = VKRefresh/VKRefreshConstant.m; sourceTree = "<group>"; };
+		B05A70E81C279BBD00D1787F /* VKRefreshHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKRefreshHeader.h; path = VKRefresh/VKRefreshHeader.h; sourceTree = "<group>"; };
+		B05A70E91C279BBD00D1787F /* VKRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKRefreshHeader.m; path = VKRefresh/VKRefreshHeader.m; sourceTree = "<group>"; };
+		B05A70EC1C27A43E00D1787F /* VKRefreshComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKRefreshComponent.h; path = VKRefresh/VKRefreshComponent.h; sourceTree = "<group>"; };
+		B05A70ED1C27A43E00D1787F /* VKRefreshComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKRefreshComponent.m; path = VKRefresh/VKRefreshComponent.m; sourceTree = "<group>"; };
+		B06A25001C28E45B00105372 /* VKRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = VKRefresh.bundle; sourceTree = "<group>"; };
+		B06A25021C291C1E00105372 /* UIView+VKExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+VKExtension.h"; sourceTree = "<group>"; };
+		B06A25031C291C1E00105372 /* UIView+VKExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+VKExtension.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B05A70B71C27922100D1787F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B05A70B11C27922100D1787F = {
+			isa = PBXGroup;
+			children = (
+				B05A70BC1C27922100D1787F /* VKRefreshExample */,
+				B05A70BB1C27922100D1787F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B05A70BB1C27922100D1787F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B05A70BA1C27922100D1787F /* VKRefreshExample.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B05A70BC1C27922100D1787F /* VKRefreshExample */ = {
+			isa = PBXGroup;
+			children = (
+				B05A70D41C27923900D1787F /* VKRefresh */,
+				B05A70C01C27922100D1787F /* AppDelegate.h */,
+				B05A70C11C27922100D1787F /* AppDelegate.m */,
+				B05A70C31C27922100D1787F /* ViewController.h */,
+				B05A70C41C27922100D1787F /* ViewController.m */,
+				B05A70BD1C27922100D1787F /* Supporting Files */,
+			);
+			path = VKRefreshExample;
+			sourceTree = "<group>";
+		};
+		B05A70BD1C27922100D1787F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B05A70C91C27922100D1787F /* Assets.xcassets */,
+				B05A70C61C27922100D1787F /* Main.storyboard */,
+				B05A70CB1C27922100D1787F /* LaunchScreen.storyboard */,
+				B05A70CE1C27922100D1787F /* Info.plist */,
+				B05A70BE1C27922100D1787F /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B05A70D41C27923900D1787F /* VKRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				B06A25001C28E45B00105372 /* VKRefresh.bundle */,
+				B05A70E01C279B5C00D1787F /* VKRefresh.h */,
+				B05A70E11C279B5C00D1787F /* VKRefreshConstant.h */,
+				B05A70E21C279B5C00D1787F /* VKRefreshConstant.m */,
+				B05A70EB1C279BD700D1787F /* Extensions */,
+				B05A70EF1C27A44A00D1787F /* Component */,
+			);
+			name = VKRefresh;
+			sourceTree = "<group>";
+		};
+		B05A70EB1C279BD700D1787F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B05A70DE1C279B5C00D1787F /* UIScrollView+VKRefresh.h */,
+				B05A70DF1C279B5C00D1787F /* UIScrollView+VKRefresh.m */,
+				B06A25021C291C1E00105372 /* UIView+VKExtension.h */,
+				B06A25031C291C1E00105372 /* UIView+VKExtension.m */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		B05A70EF1C27A44A00D1787F /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				B05A70E81C279BBD00D1787F /* VKRefreshHeader.h */,
+				B05A70E91C279BBD00D1787F /* VKRefreshHeader.m */,
+				B05A70EC1C27A43E00D1787F /* VKRefreshComponent.h */,
+				B05A70ED1C27A43E00D1787F /* VKRefreshComponent.m */,
+			);
+			name = Component;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B05A70B91C27922100D1787F /* VKRefreshExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B05A70D11C27922100D1787F /* Build configuration list for PBXNativeTarget "VKRefreshExample" */;
+			buildPhases = (
+				B05A70B61C27922100D1787F /* Sources */,
+				B05A70B71C27922100D1787F /* Frameworks */,
+				B05A70B81C27922100D1787F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VKRefreshExample;
+			productName = VKRefreshExample;
+			productReference = B05A70BA1C27922100D1787F /* VKRefreshExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B05A70B21C27922100D1787F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = VK;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = vokie;
+				TargetAttributes = {
+					B05A70B91C27922100D1787F = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = B05A70B51C27922100D1787F /* Build configuration list for PBXProject "VKRefreshExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B05A70B11C27922100D1787F;
+			productRefGroup = B05A70BB1C27922100D1787F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B05A70B91C27922100D1787F /* VKRefreshExample */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B05A70B81C27922100D1787F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B06A25011C28E45B00105372 /* VKRefresh.bundle in Resources */,
+				B05A70CD1C27922100D1787F /* LaunchScreen.storyboard in Resources */,
+				B05A70CA1C27922100D1787F /* Assets.xcassets in Resources */,
+				B05A70C81C27922100D1787F /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B05A70B61C27922100D1787F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B05A70C51C27922100D1787F /* ViewController.m in Sources */,
+				B06A25041C291C1E00105372 /* UIView+VKExtension.m in Sources */,
+				B05A70C21C27922100D1787F /* AppDelegate.m in Sources */,
+				B05A70E31C279B5C00D1787F /* UIScrollView+VKRefresh.m in Sources */,
+				B05A70EE1C27A43E00D1787F /* VKRefreshComponent.m in Sources */,
+				B05A70E41C279B5C00D1787F /* VKRefreshConstant.m in Sources */,
+				B05A70BF1C27922100D1787F /* main.m in Sources */,
+				B05A70EA1C279BBD00D1787F /* VKRefreshHeader.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B05A70C61C27922100D1787F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B05A70C71C27922100D1787F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B05A70CB1C27922100D1787F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B05A70CC1C27922100D1787F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B05A70CF1C27922100D1787F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B05A70D01C27922100D1787F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B05A70D21C27922100D1787F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = VKRefreshExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.vokie.VKRefreshExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		B05A70D31C27922100D1787F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = VKRefreshExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.vokie.VKRefreshExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B05A70B51C27922100D1787F /* Build configuration list for PBXProject "VKRefreshExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B05A70CF1C27922100D1787F /* Debug */,
+				B05A70D01C27922100D1787F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B05A70D11C27922100D1787F /* Build configuration list for PBXNativeTarget "VKRefreshExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B05A70D21C27922100D1787F /* Debug */,
+				B05A70D31C27922100D1787F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B05A70B21C27922100D1787F /* Project object */;
+}
