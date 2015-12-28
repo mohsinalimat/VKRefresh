@@ -7,13 +7,15 @@
 //
 
 #import "VKRefreshHeader.h"
-#import "VKRefreshConstant.h"
 #import "UIView+VKExtension.h"
 #import "UIScrollView+VKExtension.h"
+#import "VKConstant.h"
 
 @interface VKRefreshHeader()
 
 @property (nonatomic, weak) UIImageView *arrowImage;
+@property (nonatomic, weak) UILabel *timeLabel;
+@property (nonatomic, weak) UILabel *stateLabel;
 @property (nonatomic, weak) UIActivityIndicatorView *indicator;
 @property (nonatomic, assign) VKRefreshState oldState;
 
@@ -29,6 +31,32 @@
         [self addSubview:_arrowImage];
     }
     return _arrowImage;
+}
+
+- (UILabel *)timeLabel {
+    if (!_timeLabel) {
+        UILabel *timeLabel = [[UILabel alloc]init];
+        _timeLabel = timeLabel;
+        _timeLabel.text = @"最后更新：今天19:30";
+        _timeLabel.textColor = [UIColor grayColor];
+        _timeLabel.textAlignment = NSTextAlignmentCenter;
+        _timeLabel.font = [UIFont systemFontOfSize:12];
+        [self addSubview:_timeLabel];
+    }
+    return _timeLabel;
+}
+
+- (UILabel *)stateLabel {
+    if (!_stateLabel) {
+        UILabel *stateLabel = [[UILabel alloc]init];
+        _stateLabel = stateLabel;
+        _stateLabel.text = @"下拉即可刷新";
+        _stateLabel.textColor = [UIColor grayColor];
+        _stateLabel.textAlignment = NSTextAlignmentCenter;
+        _stateLabel.font = [UIFont systemFontOfSize:14];
+        [self addSubview:_stateLabel];
+    }
+    return _stateLabel;
 }
 
 - (UIActivityIndicatorView *)indicator {
@@ -52,7 +80,6 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
     
     if ([keyPath isEqualToString:VKRefreshContentOffset]) {
-        NSLog(@"Content OffsetY:%f", self.scrollView.vk_offsetY);
         if (self.scrollView.isDragging) {
             if (self.state == VKRefreshStatePulling && self.scrollView.vk_offsetY > -VKRefreshHeaderHeight) {
                 self.state = VKRefreshStateIdle;
@@ -113,6 +140,8 @@
         }default:
             break;
     }
+    
+    [self updateStateLabel];
 }
 
 - (void)willMoveToSuperview:(UIView *)newSuperview {
@@ -124,16 +153,26 @@
     }
 }
 
+- (void)updateStateLabel {
+    if (self.state == VKRefreshStateIdle) {
+        self.stateLabel.text = @"下拉即可刷新";
+    }else if (self.state == VKRefreshStatePulling) {
+        self.stateLabel.text = @"松开立即刷新";
+    }else if (self.state == VKRefreshStateRefreshing) {
+        self.stateLabel.text = @"正在刷新";
+    }
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
-//    self.arrowImage.center = CGPointMake(10, 10);
-    NSLog(@"header  layout subviews is called");
     self.vk_y = -self.vk_h;
     // 箭头
-    CGFloat arrowX = self.vk_w * 0.5 - 100;
-    NSLog(@">>>%f", arrowX);
+    CGFloat arrowX = self.vk_w * 0.5 - 80;
     self.arrowImage.center = CGPointMake(arrowX, self.vk_h * 0.5);
     self.indicator.center = self.arrowImage.center;
+    [self.timeLabel sizeToFit];
+    self.timeLabel.frame = CGRectMake(0, self.arrowImage.vk_y + self.arrowImage.vk_h / 2.0, self.vk_w, 15);
+    self.stateLabel.frame = CGRectMake(0, self.arrowImage.vk_y, self.vk_w, 15);
 }
 
 - (void)beginRefreshing {

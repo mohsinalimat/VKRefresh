@@ -18,7 +18,6 @@
     [self vk_removeRefreshHeader];
     
     VKRefreshHeader *fresh = [[VKRefreshHeader alloc]init];
-    fresh.backgroundColor = [UIColor lightGrayColor];
     self.vkHeader = fresh;
     [self addSubview:self.vkHeader];
     
@@ -49,7 +48,6 @@ static char VKRefreshHeaderKey;
     [self vk_removeRefreshFooter];
     
     VKRefreshFooter *fresh = [[VKRefreshFooter alloc]init];
-    fresh.backgroundColor = [UIColor lightGrayColor];
     self.vkFooter = fresh;
     [self addSubview:self.vkFooter];
 }

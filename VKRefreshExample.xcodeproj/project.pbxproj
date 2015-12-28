@@ -36,7 +36,6 @@
 		B05A70DE1C279B5C00D1787F /* UIScrollView+VKRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+VKRefresh.h"; path = "VKRefresh/UIScrollView+VKRefresh.h"; sourceTree = "<group>"; };
 		B05A70DF1C279B5C00D1787F /* UIScrollView+VKRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIScrollView+VKRefresh.m"; path = "VKRefresh/UIScrollView+VKRefresh.m"; sourceTree = "<group>"; };
 		B05A70E01C279B5C00D1787F /* VKRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKRefresh.h; path = VKRefresh/VKRefresh.h; sourceTree = "<group>"; };
-		B05A70E11C279B5C00D1787F /* VKRefreshConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKRefreshConstant.h; path = VKRefresh/VKRefreshConstant.h; sourceTree = "<group>"; };
 		B05A70E81C279BBD00D1787F /* VKRefreshHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKRefreshHeader.h; path = VKRefresh/VKRefreshHeader.h; sourceTree = "<group>"; };
 		B05A70E91C279BBD00D1787F /* VKRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKRefreshHeader.m; path = VKRefresh/VKRefreshHeader.m; sourceTree = "<group>"; };
 		B05A70EC1C27A43E00D1787F /* VKRefreshComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKRefreshComponent.h; path = VKRefresh/VKRefreshComponent.h; sourceTree = "<group>"; };
@@ -48,6 +47,7 @@
 		B86361511C30DC0B008AA5F0 /* VKRefreshFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKRefreshFooter.m; sourceTree = "<group>"; };
 		B8699BCF1C2D2ECF00312888 /* UIScrollView+VKExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+VKExtension.h"; sourceTree = "<group>"; };
 		B8699BD01C2D2ECF00312888 /* UIScrollView+VKExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+VKExtension.m"; sourceTree = "<group>"; };
+		B88D43791C317136006A139B /* VKConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VKConstant.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +107,7 @@
 			children = (
 				B06A25001C28E45B00105372 /* VKRefresh.bundle */,
 				B05A70E01C279B5C00D1787F /* VKRefresh.h */,
-				B05A70E11C279B5C00D1787F /* VKRefreshConstant.h */,
+				B88D43791C317136006A139B /* VKConstant.h */,
 				B05A70EB1C279BD700D1787F /* Extensions */,
 				B05A70EF1C27A44A00D1787F /* Component */,
 			);

@@ -7,8 +7,8 @@
 //
 
 #import "VKRefreshComponent.h"
-#import "VKRefreshConstant.h"
 #import "UIView+VKExtension.h"
+#import "VKConstant.h"
 
 @interface VKRefreshComponent()
 
@@ -21,7 +21,6 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        self.backgroundColor = [UIColor cyanColor];
     }
     return self;
 }
@@ -29,9 +28,6 @@
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     [super willMoveToSuperview:newSuperview];
     
-    NSLog(@"VKRefreshComponent.willMoveToSuperview");
-    
-    // 移除旧的监听
     [self.superview removeObserver:self forKeyPath:VKRefreshContentOffset context:nil];
     
     if (newSuperview) {

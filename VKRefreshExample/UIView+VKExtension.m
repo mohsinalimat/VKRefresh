@@ -70,4 +70,12 @@
     self.frame = frame;
 }
 
+- (CGFloat)vk_bottom {
+    return self.vk_y + self.vk_h;
+}
+
+- (CGFloat)vk_right {
+    return self.vk_x + self.vk_w;
+}
+
 @end

@@ -6,8 +6,10 @@
 //  Copyright © 2015年 vokie. All rights reserved.
 //
 
+//Version: 1.0
 #import "UIScrollView+VKRefresh.h"
-#import "VKRefreshConstant.h"
+#import "VKConstant.h"
 #import "VKRefreshComponent.h"
 #import "VKRefreshHeader.h"
 #import "VKRefreshFooter.h"
+
