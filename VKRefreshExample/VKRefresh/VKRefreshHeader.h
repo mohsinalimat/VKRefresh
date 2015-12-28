@@ -14,4 +14,5 @@
 @interface VKRefreshHeader : VKRefreshComponent
 
 @property (nonatomic, assign) VKRefreshState state;
+
 @end

@@ -9,9 +9,11 @@
 #import "UIScrollView+VKRefresh.h"
 #import <objc/runtime.h>
 #import "VKRefreshHeader.h"
+#import "VKRefreshFooter.h"
 
 @implementation UIScrollView (VKRefresh)
 
+//header
 - (void)vk_addRefreshHeader {
     [self vk_removeRefreshHeader];
     
@@ -40,5 +42,36 @@ static char VKRefreshHeaderKey;
         self.vkHeader = nil;
     }
 }
+
+
+//footer
+- (void)vk_addRefreshFooter {
+    [self vk_removeRefreshFooter];
+    
+    VKRefreshFooter *fresh = [[VKRefreshFooter alloc]init];
+    fresh.backgroundColor = [UIColor lightGrayColor];
+    self.vkFooter = fresh;
+    [self addSubview:self.vkFooter];
+}
+
+//动态绑定属性vkFooter到UIScrollView上面
+static char VKRefreshFooterKey;
+- (void)setVkFooter:(VKRefreshFooter * _Nullable)vkFooter {
+    [self willChangeValueForKey:@"vkFooter"];
+    objc_setAssociatedObject(self, &VKRefreshFooterKey, vkFooter, OBJC_ASSOCIATION_ASSIGN);
+    [self didChangeValueForKey:@"vkFooter"];
+}
+
+- (VKRefreshFooter *)vkFooter {
+    return objc_getAssociatedObject(self, &VKRefreshFooterKey);
+}
+
+-(void)vk_removeRefreshFooter {
+    if (self.vkFooter) {
+        [self.vkFooter removeFromSuperview];
+        self.vkFooter = nil;
+    }
+}
+
 
 @end

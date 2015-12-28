@@ -8,3 +8,6 @@
 
 #import "UIScrollView+VKRefresh.h"
 #import "VKRefreshConstant.h"
+#import "VKRefreshComponent.h"
+#import "VKRefreshHeader.h"
+#import "VKRefreshFooter.h"

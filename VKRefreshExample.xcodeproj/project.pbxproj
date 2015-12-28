@@ -18,6 +18,7 @@
 		B05A70EE1C27A43E00D1787F /* VKRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = B05A70ED1C27A43E00D1787F /* VKRefreshComponent.m */; };
 		B06A25011C28E45B00105372 /* VKRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B06A25001C28E45B00105372 /* VKRefresh.bundle */; };
 		B06A25041C291C1E00105372 /* UIView+VKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B06A25031C291C1E00105372 /* UIView+VKExtension.m */; };
+		B86361521C30DC0B008AA5F0 /* VKRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = B86361511C30DC0B008AA5F0 /* VKRefreshFooter.m */; };
 		B8699BD11C2D2ECF00312888 /* UIScrollView+VKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B8699BD01C2D2ECF00312888 /* UIScrollView+VKExtension.m */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,8 @@
 		B06A25001C28E45B00105372 /* VKRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = VKRefresh.bundle; sourceTree = "<group>"; };
 		B06A25021C291C1E00105372 /* UIView+VKExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+VKExtension.h"; sourceTree = "<group>"; };
 		B06A25031C291C1E00105372 /* UIView+VKExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+VKExtension.m"; sourceTree = "<group>"; };
+		B86361501C30DC0B008AA5F0 /* VKRefreshFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKRefreshFooter.h; sourceTree = "<group>"; };
+		B86361511C30DC0B008AA5F0 /* VKRefreshFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VKRefreshFooter.m; sourceTree = "<group>"; };
 		B8699BCF1C2D2ECF00312888 /* UIScrollView+VKExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+VKExtension.h"; sourceTree = "<group>"; };
 		B8699BD01C2D2ECF00312888 /* UIScrollView+VKExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+VKExtension.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,10 +130,12 @@
 		B05A70EF1C27A44A00D1787F /* Component */ = {
 			isa = PBXGroup;
 			children = (
-				B05A70E81C279BBD00D1787F /* VKRefreshHeader.h */,
-				B05A70E91C279BBD00D1787F /* VKRefreshHeader.m */,
 				B05A70EC1C27A43E00D1787F /* VKRefreshComponent.h */,
 				B05A70ED1C27A43E00D1787F /* VKRefreshComponent.m */,
+				B05A70E81C279BBD00D1787F /* VKRefreshHeader.h */,
+				B05A70E91C279BBD00D1787F /* VKRefreshHeader.m */,
+				B86361501C30DC0B008AA5F0 /* VKRefreshFooter.h */,
+				B86361511C30DC0B008AA5F0 /* VKRefreshFooter.m */,
 			);
 			name = Component;
 			sourceTree = "<group>";
@@ -207,6 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B86361521C30DC0B008AA5F0 /* VKRefreshFooter.m in Sources */,
 				B05A70C51C27922100D1787F /* ViewController.m in Sources */,
 				B8699BD11C2D2ECF00312888 /* UIScrollView+VKExtension.m in Sources */,
 				B06A25041C291C1E00105372 /* UIView+VKExtension.m in Sources */,

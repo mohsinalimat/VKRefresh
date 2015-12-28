@@ -1,30 +1,30 @@
 //
-//  VKRefreshHeader.m
+//  VKRefreshFooter.m
 //  VKRefreshExample
 //
-//  Created by ci123 on 15/12/21.
-//  Copyright © 2015年 vokie. All rights reserved.
+//  Created by Vokie on 12/28/15.
+//  Copyright © 2015 vokie. All rights reserved.
 //
 
-#import "VKRefreshHeader.h"
+#import "VKRefreshFooter.h"
 #import "VKRefreshConstant.h"
 #import "UIView+VKExtension.h"
 #import "UIScrollView+VKExtension.h"
 
-@interface VKRefreshHeader()
+@interface VKRefreshFooter ()
 
 @property (nonatomic, weak) UIImageView *arrowImage;
 @property (nonatomic, weak) UIActivityIndicatorView *indicator;
 @property (nonatomic, assign) VKRefreshState oldState;
-
 @end
 
-@implementation VKRefreshHeader
+@implementation VKRefreshFooter
 
 - (UIImageView *)arrowImage {
     if (!_arrowImage) {
         UIImageView *arrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:VKRefreshSrcName(@"arrow")]];
         _arrowImage = arrowImage;
+        _arrowImage.transform = CGAffineTransformMakeScale(1.0,-1.0);
         _arrowImage.alpha = 1.0f;
         [self addSubview:_arrowImage];
     }
@@ -51,13 +51,16 @@
 // KVO
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
     
+    NSLog(@"HHH:%f    %f", self.scrollView.vk_offsetY + self.scrollView.vk_h, self.scrollView.vk_contentSizeHeight);
     if ([keyPath isEqualToString:VKRefreshContentOffset]) {
         NSLog(@"Content OffsetY:%f", self.scrollView.vk_offsetY);
         if (self.scrollView.isDragging) {
-            if (self.state == VKRefreshStatePulling && self.scrollView.vk_offsetY > -VKRefreshHeaderHeight) {
+            if (self.state == VKRefreshStatePulling && self.scrollView.vk_offsetY + self.scrollView.vk_h < self.scrollView.vk_contentSizeHeight + VKRefreshFooterHeight) {
                 self.state = VKRefreshStateIdle;
-            }else if (self.state == VKRefreshStateIdle && self.scrollView.vk_offsetY < -VKRefreshHeaderHeight) {  //下拉头部的距离
+                NSLog(@">>>>>>>>>>>>>IDEL");
+            }else if (self.state == VKRefreshStateIdle && self.scrollView.vk_offsetY + self.scrollView.vk_h > self.scrollView.vk_contentSizeHeight + VKRefreshFooterHeight) {  //上拉头部的距离
                 self.state = VKRefreshStatePulling;
+                NSLog(@">>>>>>>>>>>>>PULL");
             }
         }else{
             if (self.state == VKRefreshStatePulling) {
@@ -76,7 +79,7 @@
             if (_oldState == VKRefreshStateRefreshing) {
                 [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
                     self.arrowImage.transform = CGAffineTransformIdentity;   //恢复初始状态
-                    self.scrollView.vk_insetTop -= VKRefreshHeaderHeight;   //tableView上滚，隐藏tableView头部
+                    self.scrollView.vk_insetBottom -= VKRefreshFooterHeight;   //tableView上滚，隐藏tableView头部
                     self.indicator.alpha = 0.0f;
                     self.arrowImage.alpha = 1.0f;
                 }completion:^(BOOL finished) {
@@ -86,7 +89,7 @@
                 [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
                     self.arrowImage.transform = CGAffineTransformIdentity;   //恢复初始状态
                 }];
-            
+                
             }
             break;
         }
@@ -98,14 +101,14 @@
         }case VKRefreshStateRefreshing: {
             NSLog(@"REfreshing....");
             [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
-                self.scrollView.vk_insetTop = VKRefreshHeaderHeight;
-                self.scrollView.vk_offsetY = -VKRefreshHeaderHeight;   //tableview向下滚动header的高度距离
+                self.scrollView.vk_insetBottom = VKRefreshFooterHeight;
+                self.scrollView.vk_offsetY = VKRefreshFooterHeight + self.scrollView.vk_contentSizeHeight - self.scrollView.vk_h; //tableview向上滚动footer的高度的距离
                 self.arrowImage.alpha = 0.0f;
                 self.indicator.alpha = 1.0f;
                 [self.indicator startAnimating];
             } completion:^(BOOL finished) {
-                if (self.headerRefreshing) {
-                    self.headerRefreshing();
+                if (self.footerRefreshing) {
+                    self.footerRefreshing();
                 }
             }];
             
@@ -126,12 +129,12 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-//    self.arrowImage.center = CGPointMake(10, 10);
-    NSLog(@"header  layout subviews is called");
-    self.vk_y = -self.vk_h;
+    //    self.arrowImage.center = CGPointMake(10, 10);
+    NSLog(@"footer  layout subviews is called");
+    self.vk_y = self.scrollView.vk_contentSizeHeight;
     // 箭头
     CGFloat arrowX = self.vk_w * 0.5 - 100;
-    NSLog(@">>>%f", arrowX);
+    NSLog(@"footer >>> %f", arrowX);
     self.arrowImage.center = CGPointMake(arrowX, self.vk_h * 0.5);
     self.indicator.center = self.arrowImage.center;
 }

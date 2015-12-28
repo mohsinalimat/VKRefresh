@@ -16,6 +16,15 @@ typedef NS_ENUM(NSInteger, VKRefreshState) {
 
 @interface VKRefreshComponent : UIView
 
-@property (weak, nonatomic) UIScrollView *scrollView;
+@property (nonatomic, weak) UIScrollView *scrollView;
+//头部刷新时的回调block
+@property (nonatomic, copy) void (^headerRefreshing)();
+
+//脚部刷新时的回调block
+@property (nonatomic, copy) void (^footerRefreshing)();
+
+- (void)endRefreshing;
+
+- (void)beginRefreshing;
 
 @end

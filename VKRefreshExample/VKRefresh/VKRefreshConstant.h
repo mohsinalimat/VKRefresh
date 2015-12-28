@@ -15,4 +15,6 @@
 
 #define VKRefreshHeaderHeight 64.0
 
+#define VKRefreshFooterHeight 64.0
+
 #define VKRefreshContentOffset @"contentOffset"

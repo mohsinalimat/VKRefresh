@@ -31,18 +31,19 @@
     
     NSLog(@"VKRefreshComponent.willMoveToSuperview");
     
-    // 旧的父控件
+    // 移除旧的监听
     [self.superview removeObserver:self forKeyPath:VKRefreshContentOffset context:nil];
     
-    if (newSuperview) { // 新的父控件
+    if (newSuperview) {
+        //对当前UITableView添加新的监听
         [newSuperview addObserver:self forKeyPath:VKRefreshContentOffset options:NSKeyValueObservingOptionNew context:nil];
         
-        // 设置宽度
+        // 设置Header的宽度
         self.vk_w = newSuperview.vk_w;
-        // 设置位置
+        // 设置Header的x位置
         self.vk_x = 0;
         
-        // 记录UIScrollView
+        // 对UITableView进行保存
         self.scrollView = (UIScrollView *)newSuperview;
         // 设置永远支持垂直弹簧效果
         self.scrollView.alwaysBounceVertical = YES;
@@ -50,6 +51,14 @@
         self.scrollViewOriginalInset = self.scrollView.contentInset;
     }
     
+}
+
+- (void)beginRefreshing {
+
+}
+
+- (void)endRefreshing {
+
 }
 
 @end

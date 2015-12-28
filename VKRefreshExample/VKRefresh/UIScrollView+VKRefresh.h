@@ -8,14 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-@class VKRefreshHeader;
+@class VKRefreshHeader, VKRefreshFooter;
 
 @interface UIScrollView (VKRefresh)
 
-@property (nonatomic, weak, readonly) VKRefreshHeader *vkHeader;
+@property (nonatomic, readonly, weak) VKRefreshHeader *vkHeader;
 
 - (void)vk_addRefreshHeader;
 
 - (void)vk_removeRefreshHeader;
+
+@property (nonatomic, readonly, weak) VKRefreshFooter *vkFooter;
+
+- (void)vk_addRefreshFooter;
+
+- (void)vk_removeRefreshFooter;
 
 @end
