@@ -10,6 +10,7 @@
 
 @implementation UIView (VKExtension)
 
+#pragma mark - x、y、宽、高
 - (CGFloat)vk_x {
     return self.frame.origin.x;
 }
@@ -50,6 +51,42 @@
     self.frame = frame;
 }
 
+#pragma mark - 上、左、下、右
+- (CGFloat)vk_top {
+    return self.vk_y;
+}
+
+- (void)setVk_top:(CGFloat)vk_top {
+    self.vk_y = vk_top;
+}
+
+- (CGFloat)vk_left {
+    return self.vk_x;
+}
+
+- (void)setVk_left:(CGFloat)vk_left {
+    self.vk_x = vk_left;
+}
+
+- (CGFloat)vk_bottom {
+    return self.vk_y + self.vk_h;
+}
+
+- (void)setVk_bottom:(CGFloat)vk_bottom {
+    CGFloat delta = vk_bottom - (self.vk_y + self.vk_h);
+    self.vk_y += delta;
+}
+
+- (CGFloat)vk_right {
+    return self.vk_x + self.vk_w;
+}
+
+- (void)setVk_right:(CGFloat)vk_right {
+    CGFloat delta = vk_right - (self.vk_x + self.vk_w);
+    self.vk_x += delta;
+}
+
+#pragma mark - Size、Origin
 - (CGSize)vk_size {
     return self.frame.size;
 }
@@ -68,14 +105,6 @@
     CGRect frame = self.frame;
     frame.origin = vk_origin;
     self.frame = frame;
-}
-
-- (CGFloat)vk_bottom {
-    return self.vk_y + self.vk_h;
-}
-
-- (CGFloat)vk_right {
-    return self.vk_x + self.vk_w;
 }
 
 @end

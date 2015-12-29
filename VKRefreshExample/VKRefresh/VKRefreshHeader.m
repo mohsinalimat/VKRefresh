@@ -50,7 +50,7 @@
     if (!_stateLabel) {
         UILabel *stateLabel = [[UILabel alloc]init];
         _stateLabel = stateLabel;
-        _stateLabel.text = @"下拉即可刷新";
+        _stateLabel.text = VKRefreshTextSelector(self.textIdleState, VKRefreshHeaderStateTextForIdle);
         _stateLabel.textColor = [UIColor grayColor];
         _stateLabel.textAlignment = NSTextAlignmentCenter;
         _stateLabel.font = [UIFont systemFontOfSize:14];
@@ -155,11 +155,11 @@
 
 - (void)updateStateLabel {
     if (self.state == VKRefreshStateIdle) {
-        self.stateLabel.text = @"下拉即可刷新";
+        self.stateLabel.text = VKRefreshTextSelector(self.textIdleState, VKRefreshHeaderStateTextForIdle);
     }else if (self.state == VKRefreshStatePulling) {
-        self.stateLabel.text = @"松开立即刷新";
+        self.stateLabel.text = VKRefreshTextSelector(self.textPullingState, VKRefreshHeaderStateTextForPulling);
     }else if (self.state == VKRefreshStateRefreshing) {
-        self.stateLabel.text = @"正在刷新";
+        self.stateLabel.text = VKRefreshTextSelector(self.textRefreshingState, VKRefreshHeaderStateTextForRefreshing);
     }
 }
 

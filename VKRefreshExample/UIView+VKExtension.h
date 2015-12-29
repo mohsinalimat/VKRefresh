@@ -14,9 +14,12 @@
 @property (nonatomic, assign) CGFloat vk_y;
 @property (nonatomic, assign) CGFloat vk_w;
 @property (nonatomic, assign) CGFloat vk_h;
+
+@property (nonatomic, assign) CGFloat vk_top;
+@property (nonatomic, assign) CGFloat vk_left;
+@property (nonatomic, assign) CGFloat vk_bottom;
+@property (nonatomic, assign) CGFloat vk_right;
+
 @property (nonatomic, assign) CGSize vk_size;
 @property (nonatomic, assign) CGPoint vk_origin;
-@property (nonatomic, readonly, assign) CGFloat vk_bottom;
-@property (nonatomic, readonly, assign) CGFloat vk_right;
-
 @end

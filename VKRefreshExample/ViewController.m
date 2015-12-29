@@ -23,10 +23,17 @@
     self.refreshTableView.delegate = self;
     self.refreshTableView.dataSource = self;
     
-    self.dataArray = [NSMutableArray arrayWithObjects:@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", @"12", @"13", @"14", @"15", @"16", @"17", @"18", @"19", @"20", nil];
+    self.dataArray = [NSMutableArray array];
+    
+    for (NSInteger i = 1; i <= 20; i++) {
+        [self.dataArray addObject:[NSString stringWithFormat:@"%ld", i]];
+    }
     
     //添加刷新头部
     [self.refreshTableView vk_addRefreshHeader];
+//    self.refreshTableView.vkHeader.textIdleState = @"拉我一把呀";
+//    self.refreshTableView.vkHeader.textPullingState = @"别拉我啦";
+//    self.refreshTableView.vkHeader.textRefreshingState = @"奔跑加载中";
     
     [self.refreshTableView.vkHeader beginRefreshing];
     
@@ -45,6 +52,10 @@
     
     //添加刷新脚部
     [self.refreshTableView vk_addRefreshFooter];
+//    self.refreshTableView.vkFooter.textIdleState = @"继续上拉我";
+//    self.refreshTableView.vkFooter.textPullingState = @"松开我吧";
+//    self.refreshTableView.vkFooter.textRefreshingState = @"火速加载中";
+    
     self.refreshTableView.vkFooter.footerRefreshing = ^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.dataArray addObject:@"footer_9991"];
@@ -80,7 +91,6 @@
     }
     
     cell.textLabel.text = [NSString stringWithFormat:@"数据：%@", self.dataArray[indexPath.row]];
-    
     return cell;
 }
 
@@ -91,7 +101,6 @@
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

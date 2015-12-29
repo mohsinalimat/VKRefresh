@@ -36,7 +36,7 @@
     if (!_stateLabel) {
         UILabel *stateLabel = [[UILabel alloc]init];
         _stateLabel = stateLabel;
-        _stateLabel.text = @"上拉加载更多";
+        _stateLabel.text = VKRefreshTextSelector(self.textIdleState, VKRefreshFooterStateTextForIdle);
         _stateLabel.textColor = [UIColor grayColor];
         _stateLabel.textAlignment = NSTextAlignmentCenter;
         _stateLabel.font = [UIFont systemFontOfSize:14];
@@ -145,11 +145,11 @@
 
 - (void)updateStateLabel {
     if (self.state == VKRefreshStateIdle) {
-        self.stateLabel.text = @"上拉加载更多";
+        self.stateLabel.text = VKRefreshTextSelector(self.textIdleState, VKRefreshFooterStateTextForIdle);
     }else if (self.state == VKRefreshStatePulling) {
-        self.stateLabel.text = @"松开立即加载";
+        self.stateLabel.text = VKRefreshTextSelector(self.textPullingState, VKRefreshFooterStateTextForPulling);
     }else if (self.state == VKRefreshStateRefreshing) {
-        self.stateLabel.text = @"正在加载";
+        self.stateLabel.text = VKRefreshTextSelector(self.textRefreshingState, VKRefreshFooterStateTextForRefreshing);
     }
 }
 
