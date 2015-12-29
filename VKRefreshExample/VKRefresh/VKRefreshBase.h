@@ -14,7 +14,7 @@ typedef NS_ENUM(NSInteger, VKRefreshState) {
     VKRefreshStateRefreshing  //正在刷新
 };
 
-@interface VKRefreshComponent : UIView
+@interface VKRefreshBase : UIView
 //添加VKRefresh的scrollView控件
 @property (nonatomic, weak) UIScrollView *scrollView;
 //头部刷新时的回调block

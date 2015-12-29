@@ -133,13 +133,15 @@
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     [super willMoveToSuperview:newSuperview];
     
+    [self.superview removeObserver:self forKeyPath:VKRefreshContentOffset context:nil];
     [self.superview removeObserver:self forKeyPath:VKRefreshContentSize context:nil];
 
-    
     if (newSuperview) {
+        //对当前UITableView添加新的监听
+        [newSuperview addObserver:self forKeyPath:VKRefreshContentOffset options:NSKeyValueObservingOptionNew context:nil];
         [newSuperview addObserver:self forKeyPath:VKRefreshContentSize options:NSKeyValueObservingOptionNew context:nil];
         
-        self.vk_h= VKRefreshFooterHeight;
+        self.vk_h = VKRefreshFooterHeight;
     }
 }
 

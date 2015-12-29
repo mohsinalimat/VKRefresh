@@ -10,6 +10,8 @@
 #define VKConstant_h
 
 //常量定义
+#define VKRefreshVersion 1.0
+
 #define VKRefreshSrcName(name) [NSString stringWithFormat:@"VKRefresh.bundle/%@", name]
 
 #define VKRefreshTextSelector(targetText, defaultText) targetText == nil ? defaultText : targetText

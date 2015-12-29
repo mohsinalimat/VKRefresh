@@ -37,7 +37,7 @@
     if (!_timeLabel) {
         UILabel *timeLabel = [[UILabel alloc]init];
         _timeLabel = timeLabel;
-        _timeLabel.text = @"最后更新：尚未记录";
+        _timeLabel.text = @"最后更新：无记录";
         _timeLabel.textColor = [UIColor grayColor];
         _timeLabel.textAlignment = NSTextAlignmentCenter;
         _timeLabel.font = [UIFont systemFontOfSize:12];
@@ -150,7 +150,10 @@
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     [super willMoveToSuperview:newSuperview];
     
+    [self.superview removeObserver:self forKeyPath:VKRefreshContentOffset context:nil];
     if (newSuperview) {
+        //对当前UITableView添加新的监听
+        [newSuperview addObserver:self forKeyPath:VKRefreshContentOffset options:NSKeyValueObservingOptionNew context:nil];
         //设置header的高度
         self.vk_h = VKRefreshHeaderHeight;
     }
@@ -176,8 +179,7 @@
 }
 
 #pragma mark key的处理
-- (void)updatedTimeLabel
-{
+- (void)updatedTimeLabel {
     NSDate *lastUpdatedTime = [[NSUserDefaults standardUserDefaults] objectForKey:VKRefreshUpdateTimeKey];
     
     if (lastUpdatedTime) {
@@ -201,7 +203,7 @@
         // 3.显示日期
         self.timeLabel.text = [NSString stringWithFormat:@"最后更新：%@", time];
     } else {
-        self.timeLabel.text = @"最后更新：尚未记录";
+        self.timeLabel.text = @"最后更新：无记录";
     }
 }
 

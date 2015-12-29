@@ -15,7 +15,7 @@
 		B05A70CD1C27922100D1787F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B05A70CB1C27922100D1787F /* LaunchScreen.storyboard */; };
 		B05A70E31C279B5C00D1787F /* UIScrollView+VKRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = B05A70DF1C279B5C00D1787F /* UIScrollView+VKRefresh.m */; };
 		B05A70EA1C279BBD00D1787F /* VKRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = B05A70E91C279BBD00D1787F /* VKRefreshHeader.m */; };
-		B05A70EE1C27A43E00D1787F /* VKRefreshComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = B05A70ED1C27A43E00D1787F /* VKRefreshComponent.m */; };
+		B05A70EE1C27A43E00D1787F /* VKRefreshBase.m in Sources */ = {isa = PBXBuildFile; fileRef = B05A70ED1C27A43E00D1787F /* VKRefreshBase.m */; };
 		B06A25011C28E45B00105372 /* VKRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B06A25001C28E45B00105372 /* VKRefresh.bundle */; };
 		B06A25041C291C1E00105372 /* UIView+VKExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = B06A25031C291C1E00105372 /* UIView+VKExtension.m */; };
 		B86361521C30DC0B008AA5F0 /* VKRefreshFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = B86361511C30DC0B008AA5F0 /* VKRefreshFooter.m */; };
@@ -38,8 +38,8 @@
 		B05A70E01C279B5C00D1787F /* VKRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKRefresh.h; path = VKRefresh/VKRefresh.h; sourceTree = "<group>"; };
 		B05A70E81C279BBD00D1787F /* VKRefreshHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKRefreshHeader.h; path = VKRefresh/VKRefreshHeader.h; sourceTree = "<group>"; };
 		B05A70E91C279BBD00D1787F /* VKRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKRefreshHeader.m; path = VKRefresh/VKRefreshHeader.m; sourceTree = "<group>"; };
-		B05A70EC1C27A43E00D1787F /* VKRefreshComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKRefreshComponent.h; path = VKRefresh/VKRefreshComponent.h; sourceTree = "<group>"; };
-		B05A70ED1C27A43E00D1787F /* VKRefreshComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKRefreshComponent.m; path = VKRefresh/VKRefreshComponent.m; sourceTree = "<group>"; };
+		B05A70EC1C27A43E00D1787F /* VKRefreshBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VKRefreshBase.h; path = VKRefresh/VKRefreshBase.h; sourceTree = "<group>"; };
+		B05A70ED1C27A43E00D1787F /* VKRefreshBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VKRefreshBase.m; path = VKRefresh/VKRefreshBase.m; sourceTree = "<group>"; };
 		B06A25001C28E45B00105372 /* VKRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = VKRefresh.bundle; sourceTree = "<group>"; };
 		B06A25021C291C1E00105372 /* UIView+VKExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+VKExtension.h"; sourceTree = "<group>"; };
 		B06A25031C291C1E00105372 /* UIView+VKExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+VKExtension.m"; sourceTree = "<group>"; };
@@ -105,11 +105,13 @@
 		B05A70D41C27923900D1787F /* VKRefresh */ = {
 			isa = PBXGroup;
 			children = (
-				B06A25001C28E45B00105372 /* VKRefresh.bundle */,
 				B05A70E01C279B5C00D1787F /* VKRefresh.h */,
 				B88D43791C317136006A139B /* VKConstant.h */,
+				B05A70EF1C27A44A00D1787F /* Base */,
+				B89596001C32812300ED2791 /* Header */,
+				B89596011C32812800ED2791 /* Footer */,
 				B05A70EB1C279BD700D1787F /* Extensions */,
-				B05A70EF1C27A44A00D1787F /* Component */,
+				B06A25001C28E45B00105372 /* VKRefresh.bundle */,
 			);
 			name = VKRefresh;
 			sourceTree = "<group>";
@@ -127,17 +129,31 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
-		B05A70EF1C27A44A00D1787F /* Component */ = {
+		B05A70EF1C27A44A00D1787F /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				B05A70EC1C27A43E00D1787F /* VKRefreshComponent.h */,
-				B05A70ED1C27A43E00D1787F /* VKRefreshComponent.m */,
+				B05A70EC1C27A43E00D1787F /* VKRefreshBase.h */,
+				B05A70ED1C27A43E00D1787F /* VKRefreshBase.m */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
+		B89596001C32812300ED2791 /* Header */ = {
+			isa = PBXGroup;
+			children = (
 				B05A70E81C279BBD00D1787F /* VKRefreshHeader.h */,
 				B05A70E91C279BBD00D1787F /* VKRefreshHeader.m */,
+			);
+			name = Header;
+			sourceTree = "<group>";
+		};
+		B89596011C32812800ED2791 /* Footer */ = {
+			isa = PBXGroup;
+			children = (
 				B86361501C30DC0B008AA5F0 /* VKRefreshFooter.h */,
 				B86361511C30DC0B008AA5F0 /* VKRefreshFooter.m */,
 			);
-			name = Component;
+			name = Footer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,7 +234,7 @@
 				B06A25041C291C1E00105372 /* UIView+VKExtension.m in Sources */,
 				B05A70C21C27922100D1787F /* AppDelegate.m in Sources */,
 				B05A70E31C279B5C00D1787F /* UIScrollView+VKRefresh.m in Sources */,
-				B05A70EE1C27A43E00D1787F /* VKRefreshComponent.m in Sources */,
+				B05A70EE1C27A43E00D1787F /* VKRefreshBase.m in Sources */,
 				B05A70BF1C27922100D1787F /* main.m in Sources */,
 				B05A70EA1C279BBD00D1787F /* VKRefreshHeader.m in Sources */,
 			);

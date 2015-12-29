@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "VKRefreshComponent.h"
+#import "VKRefreshBase.h"
 
-@interface VKRefreshFooter : VKRefreshComponent
+@interface VKRefreshFooter : VKRefreshBase
 
 @property (nonatomic, assign) VKRefreshState state;
 

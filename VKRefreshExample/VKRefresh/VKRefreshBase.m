@@ -6,17 +6,17 @@
 //  Copyright © 2015年 vokie. All rights reserved.
 //
 
-#import "VKRefreshComponent.h"
+#import "VKRefreshBase.h"
 #import "UIView+VKExtension.h"
 #import "VKConstant.h"
 
-@interface VKRefreshComponent()
+@interface VKRefreshBase()
 
 @property (assign, nonatomic) UIEdgeInsets scrollViewOriginalInset;
 
 @end
 
-@implementation VKRefreshComponent
+@implementation VKRefreshBase
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -28,12 +28,7 @@
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     [super willMoveToSuperview:newSuperview];
     
-    [self.superview removeObserver:self forKeyPath:VKRefreshContentOffset context:nil];
-    
-    if (newSuperview) {
-        //对当前UITableView添加新的监听
-        [newSuperview addObserver:self forKeyPath:VKRefreshContentOffset options:NSKeyValueObservingOptionNew context:nil];
-        
+    if (newSuperview) {        
         // 设置Header的宽度
         self.vk_w = newSuperview.vk_w;
         // 设置Header的x位置
