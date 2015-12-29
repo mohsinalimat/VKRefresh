@@ -42,6 +42,7 @@
         _timeLabel.textAlignment = NSTextAlignmentCenter;
         _timeLabel.font = [UIFont systemFontOfSize:12];
         [self addSubview:_timeLabel];
+        [self updatedTimeLabel];
     }
     return _timeLabel;
 }
