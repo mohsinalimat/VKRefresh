@@ -2,7 +2,7 @@
 //  ViewController.m
 //  VKRefreshExample
 //
-//  Created by ci123 on 15/12/21.
+//  Created by Vokie on 15/12/21.
 //  Copyright © 2015年 vokie. All rights reserved.
 //
 
@@ -22,24 +22,34 @@
     
     self.refreshTableView.delegate = self;
     self.refreshTableView.dataSource = self;
+    self.refreshTableView.tableFooterView = [[UIView alloc]init];
     
     self.dataArray = [NSMutableArray array];
     
-    for (NSInteger i = 1; i <= 20; i++) {
+    for (NSInteger i = 1; i <= 3; i++) {
         [self.dataArray addObject:[NSString stringWithFormat:@"%ld", i]];
     }
     
+    self.refreshTableView.rowHeight = 40;
+    [self.refreshTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CellIdentifier"];
+
+    //添加VKRefresh的例子
+    [self addVKRefresh];
+}
+
+- (void)addVKRefresh {
     //添加刷新头部
     [self.refreshTableView vk_addRefreshHeader];
-//    self.refreshTableView.vkHeader.textIdleState = @"拉我一把呀";
-//    self.refreshTableView.vkHeader.textPullingState = @"别拉我啦";
-//    self.refreshTableView.vkHeader.textRefreshingState = @"奔跑加载中";
+    self.refreshTableView.vkHeader.textIdleState = @"拉我一把呀";
+    self.refreshTableView.vkHeader.textPullingState = @"别拉我啦";
+    self.refreshTableView.vkHeader.textRefreshingState = @"奔跑加载中";
     
-    [self.refreshTableView.vkHeader beginRefreshing];
+    //立刻执行头部刷新
+    //    [self.refreshTableView.vkHeader beginRefreshing];
     
     self.refreshTableView.vkHeader.headerRefreshing = ^{
         //假装在请求数据
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.dataArray insertObject:@"header_1001" atIndex:0];
             [self.dataArray insertObject:@"header_1002" atIndex:0];
             [self.dataArray insertObject:@"header_1003" atIndex:0];
@@ -52,12 +62,12 @@
     
     //添加刷新脚部
     [self.refreshTableView vk_addRefreshFooter];
-//    self.refreshTableView.vkFooter.textIdleState = @"继续上拉我";
-//    self.refreshTableView.vkFooter.textPullingState = @"松开我吧";
-//    self.refreshTableView.vkFooter.textRefreshingState = @"火速加载中";
+    self.refreshTableView.vkFooter.textIdleState = @"继续上拉我";
+    self.refreshTableView.vkFooter.textPullingState = @"松开我吧";
+    self.refreshTableView.vkFooter.textRefreshingState = @"火速加载中";
     
     self.refreshTableView.vkFooter.footerRefreshing = ^{
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.dataArray addObject:@"footer_9991"];
             [self.dataArray addObject:@"footer_9992"];
             [self.dataArray addObject:@"footer_9993"];
@@ -68,9 +78,8 @@
         });
     };
     
-    
-    self.refreshTableView.rowHeight = 40;
-    [self.refreshTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CellIdentifier"];
+    //立刻执行头部刷新
+    //    [self.refreshTableView.vkFooter beginRefreshing];
 }
 
 

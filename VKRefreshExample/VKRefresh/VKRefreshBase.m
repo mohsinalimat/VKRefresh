@@ -1,8 +1,8 @@
 //
-//  VKRefreshComponent.m
-//  VKRefreshExample
+//  VKRefreshBase.m
+//  VKRefresh
 //
-//  Created by ci123 on 15/12/21.
+//  Created by Vokie on 15/12/21.
 //  Copyright © 2015年 vokie. All rights reserved.
 //
 

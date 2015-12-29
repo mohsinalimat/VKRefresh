@@ -1,6 +1,6 @@
 //
 //  UIScrollView+VKExtension.m
-//  VKRefreshExample
+//  VKRefresh
 //
 //  Created by Vokie on 12/25/15.
 //  Copyright © 2015 vokie. All rights reserved.

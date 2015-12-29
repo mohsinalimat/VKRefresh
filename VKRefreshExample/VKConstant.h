@@ -1,6 +1,6 @@
 //
 //  VKConstant.h
-//  VKRefreshExample
+//  VKRefresh
 //
 //  Created by Vokie on 12/28/15.
 //  Copyright © 2015 vokie. All rights reserved.
@@ -16,7 +16,7 @@
 
 #define VKRefreshTextSelector(targetText, defaultText) targetText == nil ? defaultText : targetText
 
-#define VKRefreshAnimationDuration 0.5
+#define VKRefreshAnimationDuration 0.4
 
 #define VKRefreshHeaderHeight 64.0
 

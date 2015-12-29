@@ -1,8 +1,8 @@
 //
 //  UIView+VKExtension.m
-//  VKRefreshExample
+//  VKRefresh
 //
-//  Created by ci123 on 15/12/22.
+//  Created by Vokie on 15/12/22.
 //  Copyright © 2015年 vokie. All rights reserved.
 //
 
