@@ -24,6 +24,8 @@
 
 #define VKRefreshContentSize @"contentSize"
 
+#define VKRefreshUpdateTimeKey @"VKRefreshUpdatedTimeKey"
+
 #define VKRefreshHeaderStateTextForIdle @"下拉即可刷新"
 #define VKRefreshHeaderStateTextForPulling @"松开立即刷新"
 #define VKRefreshHeaderStateTextForRefreshing @"正在刷新"

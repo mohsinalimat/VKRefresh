@@ -37,7 +37,7 @@
     if (!_timeLabel) {
         UILabel *timeLabel = [[UILabel alloc]init];
         _timeLabel = timeLabel;
-        _timeLabel.text = @"最后更新：今天19:30";
+        _timeLabel.text = @"最后更新：尚未记录";
         _timeLabel.textColor = [UIColor grayColor];
         _timeLabel.textAlignment = NSTextAlignmentCenter;
         _timeLabel.font = [UIFont systemFontOfSize:12];
@@ -101,6 +101,10 @@
     switch (state) {
         case VKRefreshStateIdle:{
             if (_oldState == VKRefreshStateRefreshing) {
+                [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:VKRefreshUpdateTimeKey];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                [self updatedTimeLabel];
+                
                 [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
                     self.arrowImage.transform = CGAffineTransformIdentity;   //恢复初始状态
                     self.scrollView.vk_insetTop -= VKRefreshHeaderHeight;   //tableView上滚，隐藏tableView头部
@@ -123,7 +127,6 @@
             }];
             break;
         }case VKRefreshStateRefreshing: {
-            NSLog(@"REfreshing....");
             [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
                 self.scrollView.vk_insetTop = VKRefreshHeaderHeight;
                 self.scrollView.vk_offsetY = -VKRefreshHeaderHeight;   //tableview向下滚动header的高度距离
@@ -140,7 +143,6 @@
         }default:
             break;
     }
-    
     [self updateStateLabel];
 }
 
@@ -160,6 +162,45 @@
         self.stateLabel.text = VKRefreshTextSelector(self.textPullingState, VKRefreshHeaderStateTextForPulling);
     }else if (self.state == VKRefreshStateRefreshing) {
         self.stateLabel.text = VKRefreshTextSelector(self.textRefreshingState, VKRefreshHeaderStateTextForRefreshing);
+    }
+}
+
+
+#pragma mark - 日历获取在9.x之后的系统使用currentCalendar会出异常。在8.0之后使用系统新API。
+- (NSCalendar *)currentCalendar {
+    if ([NSCalendar respondsToSelector:@selector(calendarWithIdentifier:)]) {
+        return [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+    }
+    return [NSCalendar currentCalendar];
+}
+
+#pragma mark key的处理
+- (void)updatedTimeLabel
+{
+    NSDate *lastUpdatedTime = [[NSUserDefaults standardUserDefaults] objectForKey:VKRefreshUpdateTimeKey];
+    
+    if (lastUpdatedTime) {
+        // 1.获得年月日
+        NSCalendar *calendar = [self currentCalendar];
+        NSUInteger unitFlags = NSCalendarUnitYear| NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour |NSCalendarUnitMinute;
+        NSDateComponents *cmp1 = [calendar components:unitFlags fromDate:lastUpdatedTime];
+        NSDateComponents *cmp2 = [calendar components:unitFlags fromDate:[NSDate date]];
+        
+        // 2.格式化日期
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        if ([cmp1 day] == [cmp2 day]) { // 今天
+            formatter.dateFormat = @"今天 HH:mm";
+        } else if ([cmp1 year] == [cmp2 year]) { // 今年
+            formatter.dateFormat = @"MM-dd HH:mm";
+        } else {
+            formatter.dateFormat = @"yyyy-MM-dd HH:mm";
+        }
+        NSString *time = [formatter stringFromDate:lastUpdatedTime];
+        
+        // 3.显示日期
+        self.timeLabel.text = [NSString stringWithFormat:@"最后更新：%@", time];
+    } else {
+        self.timeLabel.text = @"最后更新：尚未记录";
     }
 }
 
