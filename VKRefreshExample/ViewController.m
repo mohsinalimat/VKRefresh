@@ -32,7 +32,7 @@
         [self.dataArray addObject:[NSString stringWithFormat:@"%ld. 美味外卖", i]];
     }
     
-    self.refreshTableView.rowHeight = 40;
+    self.refreshTableView.rowHeight = 90;
     [self.refreshTableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"CellIdentifier"];
     
     self.headerNums = 1;
