@@ -23,6 +23,7 @@
 
 @implementation VKRefreshHeader
 
+#pragma mark - 懒加载数据
 - (UIImageView *)arrowImage {
     if (!_arrowImage) {
         UIImageView *arrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:VKRefreshSrcName(@"arrow")]];
@@ -70,11 +71,35 @@
     return _indicator;
 }
 
+#pragma mark - 生命周期函数/系统函数 调用
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.state = VKRefreshStateIdle;   //默认初始化为Idle状态
     }
     return self;
+}
+
+- (void)willMoveToSuperview:(UIView *)newSuperview {
+    [super willMoveToSuperview:newSuperview];
+    
+    [self.superview removeObserver:self forKeyPath:VKRefreshContentOffset context:nil];
+    if (newSuperview) {
+        //对当前UITableView添加新的监听
+        [newSuperview addObserver:self forKeyPath:VKRefreshContentOffset options:NSKeyValueObservingOptionNew context:nil];
+        //设置header的高度
+        self.vk_h = VKRefreshHeaderHeight;
+    }
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.vk_y = -self.vk_h;
+    CGFloat arrowX = self.vk_w * 0.5 - 80;
+    self.arrowImage.center = CGPointMake(arrowX, self.vk_h * 0.5);
+    self.indicator.center = self.arrowImage.center;
+    [self.timeLabel sizeToFit];
+    self.timeLabel.frame = CGRectMake(0, self.arrowImage.vk_y + self.arrowImage.vk_h / 2.0, self.vk_w, 15);
+    self.stateLabel.frame = CGRectMake(0, self.arrowImage.vk_y, self.vk_w, 15);
 }
 
 // KVO
@@ -95,68 +120,68 @@
     }
 }
 
+#pragma mark - 自定义函数
 - (void)setState:(VKRefreshState)state {
     _oldState = _state;
     _state = state;
-    
     switch (state) {
         case VKRefreshStateIdle:{
-            if (_oldState == VKRefreshStateRefreshing) {
-                [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:VKRefreshUpdateTimeKey];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                [self updatedTimeLabel];
-                
-                [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
-                    self.arrowImage.transform = CGAffineTransformIdentity;   //恢复初始状态
-                    self.scrollView.vk_insetTop -= VKRefreshHeaderHeight;   //tableView上滚，隐藏tableView头部
-                    self.indicator.alpha = 0.0f;
-                    self.arrowImage.alpha = 1.0f;
-                }completion:^(BOOL finished) {
-                    [self.indicator stopAnimating];
-                }];
-            }else{  //VKRefreshStatePulling
-                [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
-                    self.arrowImage.transform = CGAffineTransformIdentity;   //恢复初始状态
-                }];
-            
-            }
+            [self handleIdle];
             break;
-        }
-        case VKRefreshStatePulling: {
-            [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
-                self.arrowImage.transform = CGAffineTransformMakeRotation(-M_PI);
-            }];
+        }case VKRefreshStatePulling: {
+            [self handlePulling];
             break;
         }case VKRefreshStateRefreshing: {
-            [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
-                self.scrollView.vk_insetTop = VKRefreshHeaderHeight;
-                self.scrollView.vk_offsetY = -VKRefreshHeaderHeight;   //tableview向下滚动header的高度距离
-                self.arrowImage.alpha = 0.0f;
-                self.indicator.alpha = 1.0f;
-                [self.indicator startAnimating];
-            } completion:^(BOOL finished) {
-                if (self.headerRefreshing) {
-                    self.headerRefreshing();
-                }
-            }];
-            
+            [self handleRefreshing];
             break;
         }default:
             break;
     }
+    //拉伸刷新状态改变时，立即更新对应的状态标签
     [self updateStateLabel];
 }
 
-- (void)willMoveToSuperview:(UIView *)newSuperview {
-    [super willMoveToSuperview:newSuperview];
-    
-    [self.superview removeObserver:self forKeyPath:VKRefreshContentOffset context:nil];
-    if (newSuperview) {
-        //对当前UITableView添加新的监听
-        [newSuperview addObserver:self forKeyPath:VKRefreshContentOffset options:NSKeyValueObservingOptionNew context:nil];
-        //设置header的高度
-        self.vk_h = VKRefreshHeaderHeight;
+- (void)handleIdle {
+    if (_oldState == VKRefreshStateRefreshing) {
+        //刷新结束，存储当前的刷新时间
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:VKRefreshUpdateTimeKey];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        //更新时间标签
+        [self updatedTimeLabel];
+        
+        [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
+            self.arrowImage.transform = CGAffineTransformIdentity;   //恢复初始状态
+            self.scrollView.vk_insetTop -= VKRefreshHeaderHeight;   //tableView上滚，隐藏tableView头部
+            self.indicator.alpha = 0.0f;
+            self.arrowImage.alpha = 1.0f;
+        }completion:^(BOOL finished) {
+            [self.indicator stopAnimating];
+        }];
+    }else{  //从VKRefreshStatePulling 到 VKRefreshStateIdle
+        [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
+            self.arrowImage.transform = CGAffineTransformIdentity;   //恢复初始状态
+        }];
     }
+}
+
+- (void)handlePulling {
+    [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
+        self.arrowImage.transform = CGAffineTransformMakeRotation(-M_PI);
+    }];
+}
+
+- (void)handleRefreshing {
+    [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
+        self.scrollView.vk_insetTop = VKRefreshHeaderHeight;
+        self.scrollView.vk_offsetY = -VKRefreshHeaderHeight;   //tableview向下滚动header的高度距离
+        self.arrowImage.alpha = 0.0f;
+        self.indicator.alpha = 1.0f;
+        [self.indicator startAnimating];
+    } completion:^(BOOL finished) {
+        if (self.headerRefreshing) {
+            self.headerRefreshing();
+        }
+    }];
 }
 
 - (void)updateStateLabel {
@@ -169,27 +194,22 @@
     }
 }
 
-
-#pragma mark - 日历获取在9.x之后的系统使用currentCalendar会出异常。在8.0之后使用系统新API。
-- (NSCalendar *)currentCalendar {
-    if ([NSCalendar respondsToSelector:@selector(calendarWithIdentifier:)]) {
-        return [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
-    }
-    return [NSCalendar currentCalendar];
-}
-
-#pragma mark key的处理
 - (void)updatedTimeLabel {
     NSDate *lastUpdatedTime = [[NSUserDefaults standardUserDefaults] objectForKey:VKRefreshUpdateTimeKey];
     
     if (lastUpdatedTime) {
-        // 1.获得年月日
-        NSCalendar *calendar = [self currentCalendar];
+        NSCalendar *calendar;
+        
+        if ([NSCalendar respondsToSelector:@selector(calendarWithIdentifier:)]) {
+            calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+        }else{
+            calendar = [NSCalendar currentCalendar];
+        }
+        
         NSUInteger unitFlags = NSCalendarUnitYear| NSCalendarUnitMonth | NSCalendarUnitDay |NSCalendarUnitHour |NSCalendarUnitMinute;
         NSDateComponents *cmp1 = [calendar components:unitFlags fromDate:lastUpdatedTime];
         NSDateComponents *cmp2 = [calendar components:unitFlags fromDate:[NSDate date]];
         
-        // 2.格式化日期
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         if ([cmp1 day] == [cmp2 day]) { // 今天
             formatter.dateFormat = @"今天 HH:mm";
@@ -200,23 +220,10 @@
         }
         NSString *time = [formatter stringFromDate:lastUpdatedTime];
         
-        // 3.显示日期
         self.timeLabel.text = [NSString stringWithFormat:@"最后更新：%@", time];
     } else {
         self.timeLabel.text = @"最后更新：无记录";
     }
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    self.vk_y = -self.vk_h;
-    // 箭头
-    CGFloat arrowX = self.vk_w * 0.5 - 80;
-    self.arrowImage.center = CGPointMake(arrowX, self.vk_h * 0.5);
-    self.indicator.center = self.arrowImage.center;
-    [self.timeLabel sizeToFit];
-    self.timeLabel.frame = CGRectMake(0, self.arrowImage.vk_y + self.arrowImage.vk_h / 2.0, self.vk_w, 15);
-    self.stateLabel.frame = CGRectMake(0, self.arrowImage.vk_y, self.vk_w, 15);
 }
 
 - (void)beginRefreshing {

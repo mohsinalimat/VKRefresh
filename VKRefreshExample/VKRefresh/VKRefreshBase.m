@@ -12,8 +12,6 @@
 
 @interface VKRefreshBase()
 
-@property (assign, nonatomic) UIEdgeInsets scrollViewOriginalInset;
-
 @end
 
 @implementation VKRefreshBase
@@ -25,23 +23,18 @@
     return self;
 }
 
-- (void)willMoveToSuperview:(UIView *)newSuperview {
-    [super willMoveToSuperview:newSuperview];
+- (void)willMoveToSuperview:(UIView *)newScrollView {
+    [super willMoveToSuperview:newScrollView];
     
-    if (newSuperview) {        
-        // 设置Header的宽度
-        self.vk_w = newSuperview.vk_w;
-        // 设置Header的x位置
+    if (newScrollView) {
+        // 设置拉伸控件的宽度
+        self.vk_w = newScrollView.vk_w;
+        // 设置拉伸控件的x位置
         self.vk_x = 0;
-        
-        // 对UITableView进行保存
-        self.scrollView = (UIScrollView *)newSuperview;
-        // 设置永远支持垂直弹簧效果
+        // 对绑定了VKRefresh的UIScrollView控件进行保存
+        self.scrollView = (UIScrollView *)newScrollView;
         self.scrollView.alwaysBounceVertical = YES;
-        // 记录UIScrollView最开始的contentInset
-        self.scrollViewOriginalInset = self.scrollView.contentInset;
     }
-    
 }
 
 - (void)beginRefreshing {

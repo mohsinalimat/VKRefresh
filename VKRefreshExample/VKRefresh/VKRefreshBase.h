@@ -17,9 +17,9 @@ typedef NS_ENUM(NSInteger, VKRefreshState) {
 @interface VKRefreshBase : UIView
 //添加VKRefresh的scrollView控件
 @property (nonatomic, weak) UIScrollView *scrollView;
+
 //头部刷新时的回调block
 @property (nonatomic, copy) void (^headerRefreshing)();
-
 //脚部刷新时的回调block
 @property (nonatomic, copy) void (^footerRefreshing)();
 
@@ -28,9 +28,7 @@ typedef NS_ENUM(NSInteger, VKRefreshState) {
 @property (nonatomic, retain) NSString *textPullingState;
 @property (nonatomic, retain) NSString *textRefreshingState;
 
-
-- (void)endRefreshing;
-
 - (void)beginRefreshing;
+- (void)endRefreshing;
 
 @end

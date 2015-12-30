@@ -23,6 +23,7 @@
 
 @implementation VKRefreshFooter
 
+#pragma mark - 懒加载
 - (UIImageView *)arrowImage {
     if (!_arrowImage) {
         UIImageView *arrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:VKRefreshSrcName(@"arrow")]];
@@ -57,6 +58,7 @@
     return _indicator;
 }
 
+#pragma mark - 生命周期函数/系统函数
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.state = VKRefreshStateIdle;   //默认初始化为Idle状态
@@ -64,6 +66,33 @@
         self.insetValue = 0;
     }
     return self;
+}
+
+- (void)willMoveToSuperview:(UIView *)newSuperview {
+    [super willMoveToSuperview:newSuperview];
+    
+    [self.superview removeObserver:self forKeyPath:VKRefreshContentOffset context:nil];
+    [self.superview removeObserver:self forKeyPath:VKRefreshContentSize context:nil];
+    
+    if (newSuperview) {
+        //对当前UITableView添加新的监听
+        [newSuperview addObserver:self forKeyPath:VKRefreshContentOffset options:NSKeyValueObservingOptionNew context:nil];
+        [newSuperview addObserver:self forKeyPath:VKRefreshContentSize options:NSKeyValueObservingOptionNew context:nil];
+        
+        self.vk_h = VKRefreshFooterHeight;
+    }
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    self.vk_y = [self footerOriginY];
+    // 箭头
+    CGFloat arrowX = self.vk_w * 0.5 - 80;
+    self.arrowImage.center = CGPointMake(arrowX, self.vk_h * 0.5);
+    self.indicator.center = self.arrowImage.center;
+    
+    self.stateLabel.frame = CGRectMake(0, self.arrowImage.vk_y + self.arrowImage.vk_h / 4.0, self.vk_w, 20);
 }
 
 // KVO
@@ -85,6 +114,8 @@
     }
 }
 
+
+#pragma mark - 自定义方法
 - (CGFloat)footerOriginY {
     //当contentSize小于scrollView的高度时，取的是tableView的高度，这样就不会把脚部露出来
     return self.scrollView.vk_contentSizeHeight > self.scrollView.vk_h ? self.scrollView.vk_contentSizeHeight : self.scrollView.vk_h;
@@ -96,83 +127,79 @@
     
     switch (state) {
         case VKRefreshStateIdle:{
-            if (_oldState == VKRefreshStateRefreshing) {
-                [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
-                    self.arrowImage.transform = CGAffineTransformIdentity;   //恢复初始状态
-                    if (!self.isMoveUpFooterView) {
-                        self.scrollView.vk_insetBottom -= (VKRefreshFooterHeight + self.insetValue);
-                    }
-                    
-                    self.indicator.alpha = 0.0f;
-                    self.arrowImage.alpha = 1.0f;
-                }completion:^(BOOL finished) {
-                    [self.indicator stopAnimating];
-                }];
-            }else{  //VKRefreshStatePulling
-                [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
-                    self.arrowImage.transform = CGAffineTransformIdentity;   //恢复初始状态
-                }];
-            }
+            [self handleIdle];
             break;
         }case VKRefreshStatePulling:{
-            [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
-                self.arrowImage.transform = CGAffineTransformMakeRotation(-M_PI);
-            }];
+            [self handlePulling];
             break;
         }case VKRefreshStateRefreshing:{
-            if (self.scrollView.vk_contentSizeHeight + VKRefreshFooterHeight < self.scrollView.vk_h) {
-                self.isMoveUpFooterView = YES;
-                self.vk_y = self.scrollView.vk_h - VKRefreshFooterHeight;  //上移FooterView
-                [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
-                    self.arrowImage.alpha = 0.0f;
-                    self.indicator.alpha = 1.0f;
-                    [self.indicator startAnimating];
-                } completion:^(BOOL finished) {
-                    if (self.footerRefreshing) {
-                        self.footerRefreshing();
-                    }
-                }];
-            }else{
-                self.isMoveUpFooterView = NO;
-                [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
-                    self.scrollView.vk_insetBottom = VKRefreshFooterHeight;
-                    self.insetValue = 0;
-                    if (self.scrollView.vk_contentSizeHeight < self.scrollView.vk_h) {  //临界值的处理
-                        self.insetValue = self.scrollView.vk_h - self.scrollView.vk_contentSizeHeight;
-                        self.scrollView.vk_insetBottom = VKRefreshFooterHeight + self.insetValue;
-                    }
-                    self.scrollView.vk_offsetY = VKRefreshFooterHeight + self.scrollView.vk_contentSizeHeight - self.scrollView.vk_h; //tableview向上滚动footer的高度的距离
-                    
-                    self.arrowImage.alpha = 0.0f;
-                    self.indicator.alpha = 1.0f;
-                    [self.indicator startAnimating];
-                } completion:^(BOOL finished) {
-                    if (self.footerRefreshing) {
-                        self.footerRefreshing();
-                    }
-                }];
-            }
-            
+            [self handleRefreshing];
             break;
         }default:
             break;
     }
-    
     [self updateStateLabel];
 }
 
-- (void)willMoveToSuperview:(UIView *)newSuperview {
-    [super willMoveToSuperview:newSuperview];
-    
-    [self.superview removeObserver:self forKeyPath:VKRefreshContentOffset context:nil];
-    [self.superview removeObserver:self forKeyPath:VKRefreshContentSize context:nil];
+- (void)handleIdle {
+    if (_oldState == VKRefreshStateRefreshing) {
+        [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
+            self.arrowImage.transform = CGAffineTransformIdentity;   //恢复初始状态
+            if (!self.isMoveUpFooterView) {
+                self.scrollView.vk_insetBottom -= (VKRefreshFooterHeight + self.insetValue);
+            }
+            
+            self.indicator.alpha = 0.0f;
+            self.arrowImage.alpha = 1.0f;
+        }completion:^(BOOL finished) {
+            [self.indicator stopAnimating];
+        }];
+    }else{  //VKRefreshStatePulling
+        [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
+            self.arrowImage.transform = CGAffineTransformIdentity;   //恢复初始状态
+        }];
+    }
+}
 
-    if (newSuperview) {
-        //对当前UITableView添加新的监听
-        [newSuperview addObserver:self forKeyPath:VKRefreshContentOffset options:NSKeyValueObservingOptionNew context:nil];
-        [newSuperview addObserver:self forKeyPath:VKRefreshContentSize options:NSKeyValueObservingOptionNew context:nil];
-        
-        self.vk_h = VKRefreshFooterHeight;
+- (void)handlePulling {
+    [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
+        self.arrowImage.transform = CGAffineTransformMakeRotation(-M_PI);
+    }];
+}
+
+- (void)handleRefreshing {
+    if (self.scrollView.vk_contentSizeHeight + VKRefreshFooterHeight < self.scrollView.vk_h) {
+        self.isMoveUpFooterView = YES;
+        self.vk_y = self.scrollView.vk_h - VKRefreshFooterHeight;  //上移FooterView
+        [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
+            self.arrowImage.alpha = 0.0f;
+            self.indicator.alpha = 1.0f;
+            [self.indicator startAnimating];
+        } completion:^(BOOL finished) {
+            if (self.footerRefreshing) {
+                self.footerRefreshing();
+            }
+        }];
+    }else{
+        self.isMoveUpFooterView = NO;
+        [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
+            self.scrollView.vk_insetBottom = VKRefreshFooterHeight;
+            self.insetValue = 0;
+            //tableview中的content高度小于tableview的高度时，需要额外处理
+            if (self.scrollView.vk_contentSizeHeight < self.scrollView.vk_h) {  //临界值的处理
+                self.insetValue = self.scrollView.vk_h - self.scrollView.vk_contentSizeHeight;
+                self.scrollView.vk_insetBottom = VKRefreshFooterHeight + self.insetValue;
+            }
+            self.scrollView.vk_offsetY = VKRefreshFooterHeight + self.scrollView.vk_contentSizeHeight - self.scrollView.vk_h; //tableview向上滚动footer的高度的距离
+            
+            self.arrowImage.alpha = 0.0f;
+            self.indicator.alpha = 1.0f;
+            [self.indicator startAnimating];
+        } completion:^(BOOL finished) {
+            if (self.footerRefreshing) {
+                self.footerRefreshing();
+            }
+        }];
     }
 }
 
@@ -184,19 +211,6 @@
     }else if (self.state == VKRefreshStateRefreshing) {
         self.stateLabel.text = VKRefreshTextSelector(self.textRefreshingState, VKRefreshFooterStateTextForRefreshing);
     }
-}
-
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    
-    self.vk_y = [self footerOriginY];
-    // 箭头
-    CGFloat arrowX = self.vk_w * 0.5 - 80;
-    self.arrowImage.center = CGPointMake(arrowX, self.vk_h * 0.5);
-    self.indicator.center = self.arrowImage.center;
-    
-    self.stateLabel.frame = CGRectMake(0, self.arrowImage.vk_y + self.arrowImage.vk_h / 4.0, self.vk_w, 20);
 }
 
 - (void)beginRefreshing {
