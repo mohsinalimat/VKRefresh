@@ -121,10 +121,10 @@
 			children = (
 				B05A70DE1C279B5C00D1787F /* UIScrollView+VKRefresh.h */,
 				B05A70DF1C279B5C00D1787F /* UIScrollView+VKRefresh.m */,
-				B06A25021C291C1E00105372 /* UIView+VKExtension.h */,
-				B06A25031C291C1E00105372 /* UIView+VKExtension.m */,
 				B8699BCF1C2D2ECF00312888 /* UIScrollView+VKExtension.h */,
 				B8699BD01C2D2ECF00312888 /* UIScrollView+VKExtension.m */,
+				B06A25021C291C1E00105372 /* UIView+VKExtension.h */,
+				B06A25031C291C1E00105372 /* UIView+VKExtension.m */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
