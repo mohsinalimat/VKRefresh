@@ -16,11 +16,11 @@
 
 #define VKRefreshTextSelector(targetText, defaultText) targetText == nil ? defaultText : targetText
 
-#define VKRefreshAnimationDuration 0.4
+#define VKRefreshAnimationDuration 0.5
 
 #define VKRefreshHeaderHeight 64.0
 
-#define VKRefreshFooterHeight 64.0
+#define VKRefreshFooterHeight 44.0
 
 #define VKRefreshContentOffset @"contentOffset"
 

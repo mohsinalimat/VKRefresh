@@ -71,6 +71,20 @@
     return _indicator;
 }
 
+#pragma mark - 状态文字的Set方法
+- (void)setTextIdleState:(NSString *)textIdleState {
+    _textIdleState = textIdleState;
+    _stateLabel.text = textIdleState;
+}
+
+- (void)setTextPullingState:(NSString *)textPullingState {
+    _textPullingState = textPullingState;
+}
+
+- (void)setTextRefreshingState:(NSString *)textRefreshingState {
+    _textRefreshingState = textRefreshingState;
+}
+
 #pragma mark - 生命周期函数/系统函数 调用
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {

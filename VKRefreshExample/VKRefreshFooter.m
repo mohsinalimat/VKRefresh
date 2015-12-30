@@ -58,6 +58,20 @@
     return _indicator;
 }
 
+#pragma mark - 状态文字的Set方法
+- (void)setTextIdleState:(NSString *)textIdleState {
+    _textIdleState = textIdleState;
+    _stateLabel.text = textIdleState;
+}
+
+- (void)setTextPullingState:(NSString *)textPullingState {
+    _textPullingState = textPullingState;
+}
+
+- (void)setTextRefreshingState:(NSString *)textRefreshingState {
+    _textRefreshingState = textRefreshingState;
+}
+
 #pragma mark - 生命周期函数/系统函数
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -99,9 +113,9 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:VKRefreshContentOffset]) {
         if (self.scrollView.isDragging) {
-            if (self.state == VKRefreshStatePulling && self.scrollView.vk_offsetY + self.scrollView.vk_h < [self footerOriginY] + VKRefreshFooterHeight) {
+            if (self.state == VKRefreshStatePulling && [self currentSlideDistance] < [self thresholdDistance]) {
                 self.state = VKRefreshStateIdle;
-            }else if (self.state == VKRefreshStateIdle && self.scrollView.vk_offsetY + self.scrollView.vk_h > [self footerOriginY] + VKRefreshFooterHeight) {  //上拉头部的距离
+            }else if (self.state == VKRefreshStateIdle && [self currentSlideDistance] > [self thresholdDistance]) {  //上拉头部的距离
                 self.state = VKRefreshStatePulling;
             }
         }else{
@@ -119,6 +133,15 @@
 - (CGFloat)footerOriginY {
     //当contentSize小于scrollView的高度时，取的是tableView的高度，这样就不会把脚部露出来
     return self.scrollView.vk_contentSizeHeight > self.scrollView.vk_h ? self.scrollView.vk_contentSizeHeight : self.scrollView.vk_h;
+}
+
+- (CGFloat)currentSlideDistance {
+    return self.scrollView.vk_offsetY + self.scrollView.vk_h;
+}
+
+//脚部拉伸状态变换的阀值距离，由Idle状态到Pull状态。
+- (CGFloat)thresholdDistance {
+    return [self footerOriginY] + VKRefreshFooterHeight;
 }
 
 - (void)setState:(VKRefreshState)state {
@@ -170,8 +193,9 @@
 - (void)handleRefreshing {
     if (self.scrollView.vk_contentSizeHeight + VKRefreshFooterHeight < self.scrollView.vk_h) {
         self.isMoveUpFooterView = YES;
-        self.vk_y = self.scrollView.vk_h - VKRefreshFooterHeight;  //上移FooterView
+        self.vk_y = self.scrollView.vk_h;  //先放到scrollView最底部，再做animate动画，解决漂移bug
         [UIView animateWithDuration:VKRefreshAnimationDuration animations:^{
+            self.vk_y = self.scrollView.vk_h - VKRefreshFooterHeight;  //上移FooterView
             self.arrowImage.alpha = 0.0f;
             self.indicator.alpha = 1.0f;
             [self.indicator startAnimating];

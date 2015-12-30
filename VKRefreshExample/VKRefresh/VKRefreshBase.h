@@ -23,11 +23,6 @@ typedef NS_ENUM(NSInteger, VKRefreshState) {
 //脚部刷新时的回调block
 @property (nonatomic, copy) void (^footerRefreshing)();
 
-//拉动过程中的状态文字描述
-@property (nonatomic, retain) NSString *textIdleState;
-@property (nonatomic, retain) NSString *textPullingState;
-@property (nonatomic, retain) NSString *textRefreshingState;
-
 - (void)beginRefreshing;
 - (void)endRefreshing;
 
