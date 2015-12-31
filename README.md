@@ -12,19 +12,19 @@ iOS平台上，一个下拉刷新，上拉加载更多的第三方控件。
 - (void)addVKRefresh {
     //添加刷新头部
     [self.refreshTableView vk_addRefreshHeader];
-    self.refreshTableView.vkHeader.textIdleState = @"拉我一把呀";
-    self.refreshTableView.vkHeader.textPullingState = @"别拉我啦";
-    self.refreshTableView.vkHeader.textRefreshingState = @"奔跑加载中";
+    self.refreshTableView.vkHeader.textIdleState = @"我要看菜单";
+    self.refreshTableView.vkHeader.textPullingState = @"松开查看菜单";
+    self.refreshTableView.vkHeader.textRefreshingState = @"可口美味准备中";
     
     //立刻执行头部刷新
     //[self.refreshTableView.vkHeader beginRefreshing];
     
     self.refreshTableView.vkHeader.headerRefreshing = ^{
         //假装在请求数据
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.dataArray insertObject:@"header_1001" atIndex:0];
-            [self.dataArray insertObject:@"header_1002" atIndex:0];
-            [self.dataArray insertObject:@"header_1003" atIndex:0];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.dataArray insertObject:[NSString stringWithFormat:@"新增:肉汁面条:%ld", self.headerNums++] atIndex:0];
+            [self.dataArray insertObject:[NSString stringWithFormat:@"新增:牛肉烧饭:%ld", self.headerNums++] atIndex:0];
+            [self.dataArray insertObject:[NSString stringWithFormat:@"新增:三鲜混沌:%ld", self.headerNums++] atIndex:0];
             [self.refreshTableView reloadData];
             
             //数据请求结束，停止头部刷新
@@ -34,21 +34,23 @@ iOS平台上，一个下拉刷新，上拉加载更多的第三方控件。
     
     //添加刷新脚部
     [self.refreshTableView vk_addRefreshFooter];
-    self.refreshTableView.vkFooter.textIdleState = @"继续上拉我";
-    self.refreshTableView.vkFooter.textPullingState = @"松开我吧";
-    self.refreshTableView.vkFooter.textRefreshingState = @"火速加载中";
+    self.refreshTableView.vkFooter.textIdleState = @"我要看饮料";
+    self.refreshTableView.vkFooter.textPullingState = @"松开查看饮料";
+    self.refreshTableView.vkFooter.textRefreshingState = @"新鲜饮料准备中";
     
     self.refreshTableView.vkFooter.footerRefreshing = ^{
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.dataArray addObject:@"footer_9991"];
-            [self.dataArray addObject:@"footer_9992"];
-            [self.dataArray addObject:@"footer_9993"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.dataArray addObject:[NSString stringWithFormat:@"更多:可口可乐:%ld", self.footerNums++]];
+            [self.dataArray addObject:[NSString stringWithFormat:@"更多:营养快线:%ld", self.footerNums++]];
+            [self.dataArray addObject:[NSString stringWithFormat:@"更多:牛奶果汁:%ld", self.footerNums++]];
             [self.refreshTableView reloadData];
             
             //数据请求结束，停止脚部刷新
             [self.refreshTableView.vkFooter endRefreshing];
         });
     };
+    //立刻执行头部刷新
+    //[self.refreshTableView.vkFooter beginRefreshing];
 }
 ```
 
